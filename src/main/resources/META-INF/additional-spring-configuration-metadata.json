@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "taxus.app.mqtt.topic",
+  "type": "java.lang.String",
+  "description": "Taxus application MQTT topic"
+}]}
