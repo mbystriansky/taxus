@@ -38,8 +38,8 @@ public class MainFrame extends Frame {
         super(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration());
 
         setUndecorated(true);
-        setIgnoreRepaint(false);
-        setResizable(false);
+        setIgnoreRepaint(true);
+        setResizable(true);
         setBackground(Color.BLACK);
 
         // Transparent 16 x 16 pixel cursor image

@@ -1,5 +1,17 @@
-{"properties": [{
-  "name": "taxus.app.mqtt.topic",
-  "type": "java.lang.String",
-  "description": "Taxus application MQTT topic"
-}]}
+{"properties": [
+  {
+    "name": "taxus.app.mqtt.topic",
+    "type": "java.lang.String",
+    "description": "Taxus application MQTT topic"
+  },
+  {
+    "name": "taxus.app.image.url-template",
+    "type": "java.lang.String",
+    "description": "Taxus application REST URL template for images"
+  },
+  {
+    "name": "taxus.app.dir.index",
+    "type": "java.lang.String",
+    "description": "Taxus application directory index"
+  }
+]}
