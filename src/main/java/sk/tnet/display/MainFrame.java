@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,9 @@ public class MainFrame extends Frame {
 
     @Autowired
     ResourceLoader resourceLoader;
+
+    @Value("${taxus.app.dir.index}")
+    private String dirIndex;
 
     private Image image;
 
@@ -57,7 +61,7 @@ public class MainFrame extends Frame {
     @PostConstruct
     public void init() {
         try {
-            drawURL(resourceLoader.getResource("boot_img.jpg").getURL());
+            drawURL(resourceLoader.getResource("image/" + dirIndex + ".jpg").getURL());
         } catch (IOException e) {
             LOG.error("Chyba IO", e);
         }
