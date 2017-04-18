@@ -3,6 +3,7 @@ package sk.tnet.display;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
@@ -32,13 +33,13 @@ public class MainFrame extends Frame {
     @Autowired
     ResourceLoader resourceLoader;
 
-    private Graphics2D graphics2d;
+    private Image image;
 
     public MainFrame() {
         super(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration());
 
         setUndecorated(true);
-        setIgnoreRepaint(true);
+        setIgnoreRepaint(false);
         setResizable(true);
         setBackground(Color.BLACK);
 
@@ -51,8 +52,6 @@ public class MainFrame extends Frame {
         setCursor(blankCursor);
 
         GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
-        graphics2d = (Graphics2D) getGraphics();
-        graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
     }
 
     @PostConstruct
@@ -64,8 +63,17 @@ public class MainFrame extends Frame {
         }
     }
 
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        Graphics2D graphics2d = (Graphics2D) getGraphics();
+        graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphics2d.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+    }
+
     public void drawImage(Image img) {
-        graphics2d.drawImage(img, 0, 0, getWidth(), getHeight(), null);
+        image = img;
+        repaint();
     }
 
     public void drawURL(String url) {
@@ -78,8 +86,8 @@ public class MainFrame extends Frame {
     
     public void drawURL(URL url) {
         try {
-            Image img = ImageIO.read(url);
-            drawImage(img);
+            image = ImageIO.read(url);
+            repaint();
         } catch (IOException e) {
             LOG.error("Chyba IO", e);
         }
